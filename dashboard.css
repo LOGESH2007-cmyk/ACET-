@@ -1,0 +1,489 @@
+/* ==========================================================================
+   ACET CodeMentor AI - Skill Analytics, Weakness Detector & Remedial Styles
+   ========================================================================== */
+
+/* Dashboard Layout */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1.25rem;
+}
+
+.col-span-12 { grid-column: span 12; }
+.col-span-8 { grid-column: span 8; }
+.col-span-7 { grid-column: span 7; }
+.col-span-5 { grid-column: span 5; }
+.col-span-4 { grid-column: span 4; }
+
+/* Hero Banner on Dashboard */
+.dashboard-hero-card {
+  position: relative;
+  border-radius: var(--border-radius-lg);
+  padding: 2.25rem;
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.92), rgba(30, 41, 59, 0.85)),
+              url('../assets/hero_banner.jpg') no-repeat center/cover;
+  border: 1px solid var(--border-bright);
+  box-shadow: var(--shadow-lg), 0 0 25px rgba(99, 102, 241, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+.dashboard-hero-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(9, 13, 22, 0.95) 0%, rgba(9, 13, 22, 0.75) 50%, rgba(9, 13, 22, 0.4) 100%);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 650px;
+}
+
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--border-radius-full);
+  background: rgba(99, 102, 241, 0.25);
+  border: 1px solid rgba(99, 102, 241, 0.5);
+  color: var(--primary-light);
+  font-size: 0.78rem;
+  font-weight: 700;
+  margin-bottom: 0.85rem;
+  text-transform: uppercase;
+}
+
+.hero-title {
+  font-size: 2.2rem;
+  line-height: 1.2;
+  margin-bottom: 0.75rem;
+}
+
+.hero-desc {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+}
+
+.hero-stats-row {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.hero-stat-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-stat-num {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #fff;
+}
+
+.hero-stat-label {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* Repeated Mistake High-Priority Alert Banner */
+.remedial-alert-banner {
+  background: linear-gradient(135deg, rgba(244, 63, 94, 0.2), rgba(190, 18, 60, 0.15));
+  border: 1px solid var(--danger);
+  border-radius: var(--border-radius-md);
+  padding: 1.15rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 4px 20px rgba(244, 63, 94, 0.2);
+  animation: pulse-border 2.5s infinite;
+}
+
+@keyframes pulse-border {
+  0%, 100% { border-color: rgba(244, 63, 94, 0.8); }
+  50% { border-color: rgba(244, 63, 94, 0.3); }
+}
+
+.remedial-alert-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.remedial-alert-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--danger);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  flex-shrink: 0;
+  box-shadow: 0 0 16px var(--danger-glow);
+}
+
+.remedial-alert-text h4 {
+  font-size: 1.05rem;
+  color: #fff;
+  margin-bottom: 0.2rem;
+}
+
+.remedial-alert-text p {
+  font-size: 0.85rem;
+  color: #fecdd3;
+}
+
+/* Placement Readiness Meter Card */
+.readiness-gauge-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 1.75rem 1.5rem;
+}
+
+.gauge-circle-wrapper {
+  position: relative;
+  width: 180px;
+  height: 180px;
+  margin: 1rem 0 1.25rem;
+}
+
+.gauge-svg {
+  transform: rotate(-90deg);
+  width: 100%;
+  height: 100%;
+}
+
+.gauge-bg {
+  fill: none;
+  stroke: var(--bg-tertiary);
+  stroke-width: 14;
+}
+
+.gauge-progress {
+  fill: none;
+  stroke: url(#gauge-gradient);
+  stroke-width: 14;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 1s ease-in-out;
+}
+
+.gauge-inner-label {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.gauge-percentage {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #fff;
+}
+
+.gauge-subtext {
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Company Hiring Bar Milestones */
+.company-milestones {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin-top: 0.85rem;
+}
+
+.milestone-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0.85rem;
+  background: var(--bg-tertiary);
+  border-radius: var(--border-radius-sm);
+  font-size: 0.82rem;
+}
+
+.milestone-company {
+  font-weight: 700;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.milestone-status {
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.status-ready { color: var(--success); }
+.status-almost { color: var(--warning); }
+.status-locked { color: var(--text-muted); }
+
+/* Skill Radar Canvas Container */
+.radar-chart-container {
+  height: 290px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* AI Skill & Weakness Detector Matrix */
+.weakness-list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  margin-top: 1rem;
+}
+
+.weakness-card {
+  padding: 1rem 1.15rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--border-radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: var(--transition-fast);
+}
+
+.weakness-card:hover {
+  border-color: var(--border-medium);
+  background: rgba(30, 41, 59, 0.85);
+}
+
+.weakness-card.recurring {
+  border-color: rgba(244, 63, 94, 0.4);
+  background: rgba(244, 63, 94, 0.06);
+}
+
+.weakness-info {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.weakness-icon-box {
+  width: 38px;
+  height: 38px;
+  border-radius: var(--border-radius-sm);
+  background: rgba(244, 63, 94, 0.15);
+  color: var(--danger);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+}
+
+.weakness-details h5 {
+  font-size: 0.88rem;
+  margin-bottom: 0.15rem;
+}
+
+.weakness-details p {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+/* Personalized Learning Path Timeline */
+.learning-path-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  position: relative;
+  margin-top: 1rem;
+  padding-left: 1.5rem;
+}
+
+.learning-path-timeline::before {
+  content: '';
+  position: absolute;
+  top: 10px;
+  bottom: 10px;
+  left: 7px;
+  width: 2px;
+  background: var(--border-medium);
+}
+
+.path-step-node {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.path-step-node::before {
+  content: '';
+  position: absolute;
+  left: -1.5rem;
+  top: 4px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--bg-tertiary);
+  border: 2px solid var(--border-medium);
+}
+
+.path-step-node.completed::before {
+  background: var(--success);
+  border-color: var(--success);
+  box-shadow: 0 0 8px var(--success-glow);
+}
+
+.path-step-node.active-step::before {
+  background: var(--primary);
+  border-color: #fff;
+  box-shadow: 0 0 10px var(--primary-glow);
+  animation: pulse-glow 2s infinite;
+}
+
+.step-node-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.step-node-title {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.step-node-desc {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+}
+
+/* Curriculum Grid - Language Cards */
+.curriculum-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.25rem;
+}
+
+.curriculum-module-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--border-radius-lg);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  transition: var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.curriculum-module-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--border-bright);
+  box-shadow: var(--shadow-glow);
+}
+
+.module-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.module-icon-badge {
+  width: 50px;
+  height: 50px;
+  border-radius: var(--border-radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+.lang-c { background: rgba(59, 130, 246, 0.15); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.3); }
+.lang-cpp { background: rgba(99, 102, 241, 0.15); color: #818cf8; border: 1px solid rgba(99, 102, 241, 0.3); }
+.lang-java { background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
+.lang-python { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
+.lang-dsa { background: rgba(168, 85, 247, 0.15); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.3); }
+.lang-placement { background: rgba(244, 63, 94, 0.15); color: #fb7185; border: 1px solid rgba(244, 63, 94, 0.3); }
+
+.module-card-body h3 {
+  font-size: 1.15rem;
+  margin-bottom: 0.4rem;
+}
+
+.module-card-body p {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.module-progress-bar {
+  width: 100%;
+  height: 6px;
+  background: var(--bg-tertiary);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 0.75rem;
+}
+
+.module-progress-fill {
+  height: 100%;
+  border-radius: 4px;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  transition: width 0.4s ease;
+}
+
+/* Remedial Lab Modal / Full Overlay */
+.remedial-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 8, 15, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 200;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.remedial-modal-backdrop.active {
+  display: flex;
+  animation: fadeIn 0.25s ease-out;
+}
+
+.remedial-modal-dialog {
+  background: var(--bg-secondary);
+  border: 1px solid var(--danger-glow);
+  box-shadow: 0 0 40px rgba(244, 63, 94, 0.3);
+  border-radius: var(--border-radius-lg);
+  max-width: 880px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}

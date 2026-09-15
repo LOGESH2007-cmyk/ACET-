@@ -1,0 +1,403 @@
+/* ==========================================================================
+   Code From Zero — Animations & Splash Screen
+   ========================================================================== */
+
+/* ── Splash Screen ── */
+#splash-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #090d16;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  cursor: pointer;
+  /* No auto-dismiss — user must click to proceed */
+  pointer-events: all;
+}
+
+/* After splash finishes, make it unclickable so app below is accessible */
+#splash-screen.done {
+  display: none;
+}
+
+@keyframes splashFadeOut {
+  0%   { opacity: 1; transform: scale(1); pointer-events: all; }
+  99%  { opacity: 0; transform: scale(1.04); pointer-events: none; }
+  100% { opacity: 0; transform: scale(1.04); pointer-events: none; visibility: hidden; }
+}
+
+.splash-logo-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 120px;
+  height: 120px;
+}
+
+.splash-logo-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  background: linear-gradient(135deg, #6366f1, #06b6d4, #a855f7) border-box;
+  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask-composite: exclude;
+  animation: spinRing 2s linear infinite;
+}
+
+@keyframes spinRing {
+  to { transform: rotate(360deg); }
+}
+
+.splash-logo-inner {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(99,102,241,0.25), rgba(6,182,212,0.2));
+  border: 2px solid rgba(99,102,241,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.6rem;
+  animation: splashLogoPulse 1.5s ease-in-out infinite alternate;
+  box-shadow: 0 0 40px rgba(99,102,241,0.4), 0 0 80px rgba(6,182,212,0.15);
+}
+
+@keyframes splashLogoPulse {
+  from { box-shadow: 0 0 30px rgba(99,102,241,0.4), 0 0 60px rgba(6,182,212,0.1); }
+  to   { box-shadow: 0 0 60px rgba(99,102,241,0.7), 0 0 120px rgba(6,182,212,0.3); }
+}
+
+.splash-app-name {
+  font-family: 'Outfit', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #6366f1, #06b6d4, #a855f7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.02em;
+  animation: splashTextIn 0.7s cubic-bezier(0.34,1.56,0.64,1) both;
+  animation-delay: 0.2s;
+}
+
+.splash-tagline {
+  font-size: 1rem;
+  color: #94a3b8;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  animation: splashTextIn 0.7s cubic-bezier(0.34,1.56,0.64,1) both;
+  animation-delay: 0.4s;
+}
+
+@keyframes splashTextIn {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.splash-progress-track {
+  width: min(360px, 80vw);
+  height: 4px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 99px;
+  overflow: hidden;
+  animation: splashTextIn 0.5s ease both;
+  animation-delay: 0.6s;
+}
+
+.splash-progress-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: 99px;
+  background: linear-gradient(90deg, #6366f1, #06b6d4, #a855f7);
+  animation: splashFill 2.2s cubic-bezier(0.4,0,0.2,1) forwards;
+  animation-delay: 0.5s;
+}
+
+@keyframes splashFill {
+  0%   { width: 0%; }
+  100% { width: 100%; }
+}
+
+.splash-status-text {
+  font-size: 0.78rem;
+  color: #475569;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  animation: splashTextIn 0.5s ease both;
+  animation-delay: 0.8s;
+}
+
+.splash-dots span {
+  display: inline-block;
+  animation: dotBounce 1.2s ease infinite;
+}
+.splash-dots span:nth-child(2) { animation-delay: 0.2s; }
+.splash-dots span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes dotBounce {
+  0%, 80%, 100% { transform: translateY(0); }
+  40%           { transform: translateY(-5px); }
+}
+
+/* ── Chapter Number Badge ── */
+.chapter-num-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 0.85rem;
+  font-weight: 800;
+  font-family: 'Outfit', sans-serif;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: #fff;
+  box-shadow: 0 0 16px rgba(99,102,241,0.4);
+  flex-shrink: 0;
+}
+
+/* ── Animated Concept Video Panel ── */
+.concept-video-panel {
+  background: rgba(15,23,42,0.8);
+  border: 1px solid rgba(99,102,241,0.25);
+  border-radius: 14px;
+  padding: 1.25rem 1.5rem;
+  margin: 1rem 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.concept-video-panel::before {
+  content: '▶ CONCEPT ANIMATION';
+  position: absolute;
+  top: 0.6rem;
+  right: 0.9rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--secondary);
+  opacity: 0.7;
+}
+
+/* Code typing animation */
+.code-type-anim {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.88rem;
+  color: #e2e8f0;
+  white-space: pre;
+  overflow: hidden;
+  border-right: 2px solid var(--primary);
+  animation: typingCursor 0.9s step-end infinite;
+}
+
+@keyframes typingCursor {
+  50% { border-color: transparent; }
+}
+
+.code-type-anim.typing {
+  animation: typeIn 2s steps(40,end) forwards, typingCursor 0.9s step-end infinite;
+}
+
+@keyframes typeIn {
+  from { width: 0; }
+  to   { width: 100%; }
+}
+
+/* Memory box animation */
+.mem-boxes-row {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 0.75rem;
+}
+
+.mem-box {
+  width: 52px;
+  height: 52px;
+  border: 2px solid rgba(99,102,241,0.4);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-family: 'Fira Code', monospace;
+  gap: 2px;
+  position: relative;
+  transition: all 0.3s ease;
+}
+.mem-box.active {
+  border-color: var(--secondary);
+  background: rgba(6,182,212,0.12);
+  box-shadow: 0 0 16px rgba(6,182,212,0.3);
+  animation: memPulse 0.5s ease;
+}
+.mem-box.filled {
+  border-color: var(--primary);
+  background: rgba(99,102,241,0.15);
+}
+@keyframes memPulse {
+  0%   { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+
+.mem-box-label {
+  color: #64748b;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+}
+.mem-box-val {
+  color: var(--primary-light);
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+/* Execution arrow */
+.exec-arrow {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.78rem;
+  color: var(--secondary);
+  margin-top: 0.5rem;
+  opacity: 0;
+  animation: fadeSlideUp 0.4s ease forwards;
+}
+.exec-arrow.show { opacity: 1; }
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Back Button ── */
+.back-nav-btn {
+  display: none;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.38rem 0.85rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(30,41,59,0.6);
+  color: #94a3b8;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-right: 0.5rem;
+  white-space: nowrap;
+}
+.back-nav-btn:hover {
+  color: #fff;
+  border-color: rgba(99,102,241,0.4);
+  background: rgba(99,102,241,0.12);
+  transform: translateX(-2px);
+}
+.back-nav-btn.visible {
+  display: flex;
+}
+
+/* ── Chapter Card Enhancements ── */
+.chapter-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.65rem;
+}
+
+.chapter-topic-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--secondary);
+  margin-bottom: 0.2rem;
+}
+
+/* Progress from zero */
+.chapter-progress-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-top: 0.6rem;
+}
+.chapter-progress-bar {
+  flex: 1;
+  height: 5px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 99px;
+  overflow: hidden;
+}
+.chapter-progress-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: 99px;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  transition: width 1.2s cubic-bezier(0.4,0,0.2,1);
+}
+.chapter-progress-pct {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  min-width: 2.5rem;
+  text-align: right;
+}
+
+/* curriculum grid override for chapters */
+.curriculum-grid.chapters-layout {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+/* ── Concept panel topic header ── */
+.topic-detail-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+.topic-detail-header h2 {
+  font-size: 1.4rem;
+  font-weight: 800;
+  font-family: 'Outfit', sans-serif;
+}
+
+/* ── Tanglish chat bubble style tweak ── */
+.chat-bubble.ai .chat-bubble-content p {
+  line-height: 1.65;
+}
+
+/* ── General fade-in for views ── */
+.view-section.active {
+  animation: viewFadeIn 0.35s ease both;
+}
+@keyframes viewFadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Floating particles on splash ── */
+.splash-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.splash-particle {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(99,102,241,0.5), transparent);
+  animation: particleFloat linear infinite;
+}
+@keyframes particleFloat {
+  0%   { transform: translateY(100vh) scale(0); opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 0.3; }
+  100% { transform: translateY(-20px) scale(1); opacity: 0; }
+}

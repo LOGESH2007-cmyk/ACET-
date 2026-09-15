@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Code From Zero | Learn Coding from Scratch</title>
+  <meta name="description" content="AI-Powered Personalized Coding Platform for C, C++, Java, Python, DSA and Placements with Error Detection, Multilingual Voice Tutor (English, Tamil, Tanglish), and Remedial Learning.">
+  <link rel="icon" href="assets/icon-192.png" type="image/png">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#6366f1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="ACET AI">
+  <link rel="apple-touch-icon" href="assets/icon-192.png">
+  
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/editor.css">
+  <link rel="stylesheet" href="css/ai-tutor.css">
+  <link rel="stylesheet" href="css/visualizer.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+
+  <!-- Splash Screen (click anywhere to enter the app) -->
+  <div id="splash-screen" style="cursor:pointer;" title="Click to enter app">
+    <div class="splash-logo-wrap">
+      <div class="splash-logo-ring"></div>
+      <div class="splash-logo-inner">🚀</div>
+    </div>
+    <div style="text-align: center;">
+      <h1 class="splash-app-name">Code From Zero</h1>
+      <p class="splash-tagline">Learn Coding from Scratch — Zero to Hero!</p>
+    </div>
+    <div style="display:flex; flex-direction:column; align-items:center; gap:0.5rem; margin-top:2rem;">
+      <div class="splash-progress-track">
+        <div class="splash-progress-fill"></div>
+      </div>
+      <div class="splash-status-text" style="color:#6366f1; font-weight:700; letter-spacing:0.05em;">
+        ▶ Click anywhere to Start
+      </div>
+    </div>
+  </div>
+
+  <!-- Top Navigation Bar -->
+  <header class="navbar">
+    <div style="display:flex; align-items:center; gap: 1rem;">
+      <!-- Back Button on the Left -->
+      <button class="back-nav-btn" id="btn-back-nav" onclick="window.ui.goBack()">
+        <span>←</span> Back
+      </button>
+      
+      <div class="nav-brand" onclick="window.ui.switchView('dashboard')">
+        <div class="brand-icon">⚡</div>
+        <div class="brand-info">
+          <div class="brand-title">
+            <span>Code From Zero</span>
+            <span class="brand-badge">2.0</span>
+          </div>
+          <span class="brand-subtitle">Learn Coding from Scratch — Zero to Hero!</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation Links -->
+    <ul class="nav-links">
+      <li><button class="nav-item active" data-view="dashboard"><span>📊</span> Dashboard</button></li>
+      <li><button class="nav-item" data-view="curriculum"><span>📚</span> Learning Hub</button></li>
+      <li><button class="nav-item" data-view="editor"><span>💻</span> IDE & Compiler</button></li>
+      <li><button class="nav-item" data-view="tutor"><span>🤖</span> AI Tutor & Voice</button></li>
+      <li><button class="nav-item" data-view="visualizer"><span>🎬</span> Algo Visualizer</button></li>
+    </ul>
+
+    <!-- Top Action Controls -->
+    <div class="nav-actions">
+      <!-- Removed right-side back button -->
+      <!-- Placement Readiness Pill -->
+      <div class="nav-readiness-pill" onclick="window.ui.switchView('dashboard')">
+        <span class="readiness-pulse"></span>
+        <span>Progress: <span id="nav-readiness-percent">0%</span></span>
+      </div>
+
+      <!-- Multilingual Language Switcher (EN, Tamil, Tanglish) -->
+      <div class="lang-switcher">
+        <button class="lang-btn active" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="ta">தமிழ்</button>
+        <button class="lang-btn" data-lang="tanglish">Tanglish</button>
+      </div>
+
+      <!-- Sound & Speech Toggles -->
+      <button class="icon-btn active" id="btn-toggle-sound" title="Toggle Sound FX">🔊</button>
+      <button class="icon-btn active" id="btn-toggle-voice" title="Toggle AI Voice Auto-Readout">🎙️</button>
+
+      <!-- Install App Button -->
+      <button class="install-app-btn" id="btn-install-app" title="Download & Install as App">
+        <span class="install-btn-icon">📲</span>
+        <span class="install-btn-text">Install App</span>
+      </button>
+
+      <!-- Profile Avatar -->
+      <div style="display:flex; align-items:center; gap:0.5rem; margin-left:0.25rem;">
+        <div style="width:38px; height:38px; border-radius:50%; background:linear-gradient(135deg, var(--primary), var(--secondary)); display:flex; align-items:center; justify-content:center; font-size:1.1rem; border:2px solid var(--border-bright);">
+          👨‍💻
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Application Stage -->
+  <main class="main-content">
+
+    <!-- LOGIN VIEW -->
+    <section id="view-login" class="view-section active">
+      <div class="login-container" style="display:flex; justify-content:center; align-items:center; height:100%; min-height:60vh;">
+        <div class="login-box" style="background:var(--bg-card); padding:3rem; border-radius:1rem; border:1px solid var(--border-bright); width:100%; max-width:400px;">
+          <div class="brand-icon" style="font-size: 3rem; text-align: center; margin-bottom: 1rem;">⚡</div>
+          <h2 style="text-align: center; margin-bottom: 0.5rem;">Welcome to Code From Zero</h2>
+          <p style="text-align: center; color: var(--text-muted); margin-bottom: 2rem;">Sign in to continue your coding journey</p>
+          
+          <div style="display:flex; flex-direction:column; gap:1rem;">
+            <input type="email" id="login-email" placeholder="Email Address" class="login-input" value="student@codefromzero.com" style="width:100%; padding:0.75rem; background:var(--bg-dark); border:1px solid var(--border-bright); color:var(--text-light); border-radius:0.5rem;">
+            <input type="password" id="login-password" placeholder="Password" class="login-input" value="123456" style="width:100%; padding:0.75rem; background:var(--bg-dark); border:1px solid var(--border-bright); color:var(--text-light); border-radius:0.5rem;">
+            <button class="btn btn-primary" style="width: 100%; padding: 0.75rem; font-size: 1rem; margin-top: 1rem;" onclick="window.ui.switchView('dashboard')">Sign In</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         VIEW 1: DASHBOARD & SKILL MATRIX
+         ========================================== -->
+    <section id="view-dashboard" class="view-section">
+      <div class="dashboard-grid">
+        
+        <!-- Hero Card -->
+        <div class="col-span-12">
+          <div class="dashboard-hero-card">
+            <div class="hero-content">
+              <span class="hero-tag">🎓 Learn Coding from Scratch</span>
+              <h1 class="hero-title">Master Coding with Your <span class="gradient-text">Personal AI Mentor</span></h1>
+              <p class="hero-desc">
+                Adaptive curriculum for C, C++, Java, Python, and DSA with real-time AI error diagnosis, line-by-line logic explanations in <strong>English & Tanglish</strong>, and recurring mistake elimination.
+              </p>
+              <div style="display:flex; gap:0.85rem; flex-wrap:wrap;">
+                <button class="btn btn-primary" onclick="window.ui.switchView('editor')">
+                  <span>▶</span> Open IDE & Practice
+                </button>
+                <button class="btn btn-secondary" onclick="window.ui.switchView('tutor')">
+                  <span>🎙️</span> Ask Doubts (Voice / Text)
+                </button>
+                <button class="btn btn-secondary" onclick="window.ui.switchView('visualizer')">
+                  <span>🎬</span> Explore Visualizer
+                </button>
+              </div>
+
+              <!-- Student Summary Metrics -->
+              <div class="hero-stats-row">
+                <div class="hero-stat-item">
+                  <span class="hero-stat-num" id="stat-solved-count">0</span>
+                  <span class="hero-stat-label">Challenges Solved</span>
+                </div>
+                <div class="hero-stat-item">
+                  <span class="hero-stat-num" id="stat-streak">0 🔥</span>
+                  <span class="hero-stat-label">Day Streak</span>
+                </div>
+                <div class="hero-stat-item">
+                  <span class="hero-stat-num" id="stat-coins">0 🪙</span>
+                  <span class="hero-stat-label">Coins Earned</span>
+                </div>
+                <div class="hero-stat-item">
+                  <span class="hero-stat-num" style="color:var(--warning);">Beginner</span>
+                  <span class="hero-stat-label">Current Level</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Repeated Mistake Remedial Alert Banner (Dynamic) -->
+        <div class="col-span-12" id="remedial-alert-banner" style="display:flex;">
+          <div class="remedial-alert-banner" style="width:100%;">
+            <div class="remedial-alert-info">
+              <div class="remedial-alert-icon">⚠️</div>
+              <div class="remedial-alert-text">
+                <h4 id="remedial-alert-title">Recurring Misconception: Off-by-One Loop Boundary (C / C++)</h4>
+                <p id="remedial-alert-desc">
+                  The AI detected you've repeated this mistake 2 times across exercises. Launch the interactive 3-minute remedial module to eliminate this gap!
+                </p>
+              </div>
+            </div>
+            <button class="btn btn-danger btn-sm" onclick="window.mistakeDetector.launchRemedialLab('off-by-one-c')">
+              Launch Remedial Practice 🚀
+            </button>
+          </div>
+        </div>
+
+        <!-- Placement Readiness Gauge -->
+        <div class="col-span-4">
+          <div class="card readiness-gauge-card">
+            <span class="badge badge-success">Target: Campus Placements 2026</span>
+            <h3 style="margin-top:0.75rem;">Placement Readiness</h3>
+            <p style="font-size:0.82rem; color:var(--text-secondary);">Calculated across code accuracy, edge cases & speed</p>
+
+            <div class="gauge-circle-wrapper">
+              <svg class="gauge-svg" viewBox="0 0 160 160">
+                <defs>
+                  <linearGradient id="gauge-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#6366f1"/>
+                    <stop offset="50%" stop-color="#06b6d4"/>
+                    <stop offset="100%" stop-color="#10b981"/>
+                  </linearGradient>
+                </defs>
+                <circle class="gauge-bg" cx="80" cy="80" r="72" />
+                <circle class="gauge-progress" id="gauge-progress-circle" cx="80" cy="80" r="72" stroke-dasharray="452.38" stroke-dashoffset="108" />
+              </svg>
+              <div class="gauge-inner-label">
+                <span class="gauge-percentage" id="gauge-percentage-label">76%</span>
+                <span class="gauge-subtext">Placement Ready</span>
+              </div>
+            </div>
+
+            <!-- Company Milestones -->
+            <div class="company-milestones" id="company-milestones-list"></div>
+          </div>
+        </div>
+
+        <!-- AI Skill Mastery Radar Chart -->
+        <div class="col-span-4">
+          <div class="card">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <div>
+                <h3>AI Skill Matrix</h3>
+                <p style="font-size:0.82rem; color:var(--text-secondary);">Real-time competency across 6 core dimensions</p>
+              </div>
+              <span class="badge badge-cyan">Adaptive</span>
+            </div>
+
+            <div class="radar-chart-container">
+              <canvas id="radar-canvas" width="300" height="280"></canvas>
+            </div>
+
+            <div style="display:flex; justify-content:space-around; font-size:0.75rem; color:var(--text-muted); border-top:1px solid var(--border-subtle); padding-top:0.65rem;">
+              <span>● Current Mastery</span>
+              <span>● Target Tier-1 Hiring Bar</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Active Detected Weaknesses & Remedial Paths -->
+        <div class="col-span-4">
+          <div class="card">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <div>
+                <h3>Weakness Detector</h3>
+                <p style="font-size:0.82rem; color:var(--text-secondary);">Concepts requiring reinforcement</p>
+              </div>
+              <span class="badge badge-danger">AI Scanner Active</span>
+            </div>
+
+            <div class="weakness-list-container" id="active-weaknesses-list"></div>
+          </div>
+        </div>
+
+        <!-- Personalized Learning Path Roadmap -->
+        <div class="col-span-12">
+          <div class="card">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <div>
+                <h3>Personalized Learning Path (AI Generated)</h3>
+                <p style="font-size:0.85rem; color:var(--text-secondary);">Dynamic curriculum tailored to your active skill gaps</p>
+              </div>
+              <button class="btn btn-secondary btn-sm" onclick="window.ui.switchView('curriculum')">View All Modules</button>
+            </div>
+
+            <div class="learning-path-timeline">
+              <div class="path-step-node completed">
+                <div class="step-node-header">
+                  <span class="step-node-title">Step 1: C Syntax & Memory Primitives</span>
+                  <span class="badge badge-success">Completed ✓</span>
+                </div>
+                <span class="step-node-desc">Variables, operators, functions, and standard I/O mastered.</span>
+              </div>
+
+              <div class="path-step-node active-step">
+                <div class="step-node-header">
+                  <span class="step-node-title">Step 2: Array Boundary Guarding & Pointer Safety</span>
+                  <span class="badge badge-primary">Current Focus</span>
+                </div>
+                <span class="step-node-desc">Targeting recurring off-by-one errors and zero-indexed memory models.</span>
+              </div>
+
+              <div class="path-step-node">
+                <div class="step-node-header">
+                  <span class="step-node-title">Step 3: Two Pointers & Sliding Window Mechanics (C++ / Python)</span>
+                  <span class="badge badge-warning">Next Up</span>
+                </div>
+                <span class="step-node-desc">Optimizing $O(N^2)$ brute force loops down to $O(N)$ linear time.</span>
+              </div>
+
+              <div class="path-step-node">
+                <div class="step-node-header">
+                  <span class="step-node-title">Step 4: TCS & Zoho Placement Technical Mock Simulations</span>
+                  <span class="badge badge-secondary">Locked</span>
+                </div>
+                <span class="step-node-desc">Timed mock rounds covering Kadane's algorithm, stacks, and strings.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================
+         VIEW 2: LEARNING HUB & CURRICULUM
+         ========================================== -->
+    <section id="view-curriculum" class="view-section">
+      <div class="card" style="margin-bottom:1.25rem;">
+        <h2>📚 Learning Hub</h2>
+        <p style="font-size:0.9rem; color:var(--text-secondary);">
+          Choose a programming language to start learning. Each language has topics with explanations and practice sections.
+        </p>
+      </div>
+
+      <div class="curriculum-grid" id="curriculum-grid-container"></div>
+    </section>
+
+    <!-- ==========================================
+         VIEW 3: IDE & COMPILER STUDIO
+         ========================================== -->
+    <section id="view-editor" class="view-section">
+      <div class="editor-workspace">
+        
+        <!-- Left Pane: Problem Description + Code Editor -->
+        <div class="editor-left-pane">
+          
+          <!-- Problem Header Card -->
+          <div class="problem-header-card">
+            <div class="problem-meta">
+              <span class="brand-icon" style="width:32px; height:32px; font-size:1rem;">💻</span>
+              <div>
+                <h3 class="problem-title" id="ide-problem-title">Array Sum & Boundary Guard</h3>
+                <p style="font-size:0.8rem; color:var(--text-secondary);" id="ide-problem-description">
+                  Calculate sum of array elements without accessing out-of-bounds memory.
+                </p>
+              </div>
+            </div>
+            <span class="difficulty-pill difficulty-easy" id="ide-difficulty-pill">easy</span>
+          </div>
+
+          <!-- Editor Actions Toolbar -->
+          <div class="editor-toolbar">
+            <div class="lang-select-group">
+              <label style="font-size:0.78rem; font-weight:700; color:var(--text-secondary);">LANGUAGE:</label>
+              <select class="select-custom" id="editor-lang-select">
+                <option value="c">C (GCC 6.3)</option>
+                <option value="cpp">C++ (G++ STL)</option>
+                <option value="java">Java 25</option>
+                <option value="python">Python 3</option>
+              </select>
+            </div>
+
+            <div class="editor-actions">
+              <button class="btn btn-secondary btn-sm" onclick="window.ui.switchPaneTab('hints')">
+                <span>💡</span> Hints
+              </button>
+              <button class="btn btn-primary btn-sm" id="btn-run-code">
+                <span>▶</span> Run Code
+              </button>
+            </div>
+          </div>
+
+          <!-- Code Editor Container -->
+          <div class="code-editor-container">
+            <div class="code-editor-wrapper">
+              <!-- Gutter Line Numbers -->
+              <div class="line-numbers-gutter" id="line-numbers-gutter"></div>
+
+              <!-- Active Line Overlay -->
+              <div class="line-highlight-overlay" id="active-line-overlay"></div>
+
+              <!-- Floating Explain Line Button -->
+              <button class="line-explain-btn" id="floating-line-explain-btn" onclick="window.ui.switchView('tutor')">
+                <span>⚡</span> Explain Line
+              </button>
+
+              <!-- Main Code Textarea -->
+              <textarea class="code-textarea" id="code-editor-input" spellcheck="false"></textarea>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right Pane: Tabs (Output, Test Cases, AI Error Diagnostics, Progressive Hints) -->
+        <div class="editor-right-pane">
+          
+          <div class="pane-tabs">
+            <button class="pane-tab active" data-tab="terminal" onclick="window.ui.switchPaneTab('terminal')">
+              <span>📟</span> Output
+            </button>
+            <button class="pane-tab" data-tab="diagnostics" onclick="window.ui.switchPaneTab('diagnostics')">
+              <span>🚨</span> AI Errors
+            </button>
+            <button class="pane-tab" data-tab="hints" onclick="window.ui.switchPaneTab('hints')">
+              <span>💡</span> Hints
+            </button>
+          </div>
+
+          <div class="tab-content-container">
+            
+            <!-- Tab Panel 1: Terminal Output -->
+            <div class="tab-panel active" id="tab-panel-terminal">
+              <div class="terminal-window">
+                <div class="terminal-header">
+                  <div class="terminal-dots">
+                    <div class="terminal-dot dot-red"></div>
+                    <div class="terminal-dot dot-yellow"></div>
+                    <div class="terminal-dot dot-green"></div>
+                  </div>
+                  <span>STDOUT / Execution Console</span>
+                  <span class="badge badge-cyan" style="font-size:0.65rem;">GCC Sandbox</span>
+                </div>
+                <div class="terminal-body" id="terminal-output-body">Click 'Run Code' to execute your program against public and hidden test cases.</div>
+                <div class="terminal-meta">
+                  <span>Runtime: <strong id="terminal-metric-time">0 ms</strong></span>
+                  <span>Memory: <strong id="terminal-metric-memory">2048 KB</strong></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tab Panel 2: AI Error Diagnostics (What, Why, How) -->
+            <div class="tab-panel" id="tab-panel-diagnostics">
+              <div class="ai-error-container" id="ai-error-content">
+                <div style="text-align:center; padding:2rem 1rem; color:var(--text-muted);">
+                  <div style="font-size:2.5rem; margin-bottom:0.5rem;">🔍</div>
+                  <h4>AI Error Diagnostic Ready</h4>
+                  <p style="font-size:0.85rem; margin-top:0.35rem;">
+                    Run your code. If any compilation error, bounds trap, or runtime failure occurs, AI will dissect <strong>What</strong> went wrong, <strong>Why</strong>, and <strong>How to fix it</strong>.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tab Panel 3: Progressive Hints -->
+            <div class="tab-panel" id="tab-panel-hints">
+              <div class="hints-container" id="progressive-hints-list"></div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================
+         VIEW 4: MULTILINGUAL AI TUTOR & VOICE
+         ========================================== -->
+    <section id="view-tutor" class="view-section">
+      <div class="tutor-view-container">
+        
+        <!-- Left: Quick Doubts & Conceptual Shortcuts -->
+        <div class="tutor-sidebar-left">
+          <div class="tutor-sidebar-title">
+            <span>⚡</span> Quick Doubt Chips
+          </div>
+          <p style="font-size:0.78rem; color:var(--text-muted);">Click to ask the AI mentor instantly:</p>
+
+          <div class="quick-doubts-list">
+            <div class="quick-doubt-chip" data-query="Explain pointers in C in Tanglish">
+              👉 Explain Pointers in Tanglish
+            </div>
+            <div class="quick-doubt-chip" data-query="Why is off-by-one error dangerous in arrays?">
+              👉 Why do Off-by-One errors happen?
+            </div>
+            <div class="quick-doubt-chip" data-query="What is the base case in recursion?">
+              👉 Explain Recursion Base Case
+            </div>
+            <div class="quick-doubt-chip" data-query="Difference between O(1) and O(N) time complexity">
+              👉 Big-O Time Complexity in simple words
+            </div>
+            <div class="quick-doubt-chip" data-query="How to prepare for TCS and Zoho coding rounds?">
+              👉 Placement Prep Tips (TCS / Zoho)
+            </div>
+          </div>
+        </div>
+
+        <!-- Center: Interactive Chat with Voice -->
+        <div class="tutor-chat-main">
+          
+          <!-- Chat Header -->
+          <div class="tutor-chat-header">
+            <div class="tutor-persona">
+              <div class="tutor-avatar">
+                🤖
+                <div class="tutor-avatar-online"></div>
+              </div>
+              <div class="tutor-persona-info">
+                <h3>Code From Zero AI Mentor</h3>
+                <span class="tutor-language-status" id="tutor-active-lang-text">Tanglish Mode Active</span>
+              </div>
+            </div>
+
+            <!-- Voice waveform activity -->
+            <div class="voice-wave-container" id="tutor-voice-wave">
+              <div class="wave-bar"></div>
+              <div class="wave-bar"></div>
+              <div class="wave-bar"></div>
+              <div class="wave-bar"></div>
+              <div class="wave-bar"></div>
+              <span style="font-size:0.75rem; color:var(--secondary); font-weight:700; margin-left:6px;">Listening...</span>
+            </div>
+          </div>
+
+          <!-- Chat Messages Area -->
+          <div class="chat-messages-scroll" id="chat-messages-container">
+            <div class="chat-bubble ai">
+              <div class="chat-bubble-avatar">🤖</div>
+              <div class="chat-bubble-content">
+                <div class="chat-lang-indicator">
+                  <span>🌐</span>
+                  <span>TANGLISH</span>
+                </div>
+                <p>
+                  வணக்கம்! நான் உங்க <strong>Code From Zero AI Coding Mentor</strong>. உங்களுக்கு C, C++, Java, Python, DSA அல்லது Placement coding-ல எந்த doubt இருந்தாலும் text அல்லது voice மூலமா கேளுங்க! 
+                </p>
+                <p>
+                  உங்களுக்கு புரியுற மாதிரி <strong>Simple English அல்லது Tanglish</strong>-ல explain பண்ணுவேன். 
+                </p>
+                <div>
+                  <button class="chat-speak-btn" onclick="window.aiTutor.speakText('வணக்கம்! நான் உங்க ACET AI Coding Mentor. எந்த doubt இருந்தாலும் கேளுங்க!', 'tanglish')">
+                    <span>🔊</span> Listen
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Chat Input Bar -->
+          <div class="tutor-input-box">
+            <button class="mic-toggle-btn" id="btn-tutor-mic" title="Click to speak (Voice STT)">🎙️</button>
+            <input type="text" class="tutor-text-input" id="tutor-input-field" placeholder="Ask your doubt in English, Tamil, or Tanglish...">
+            <button class="btn btn-primary" id="btn-tutor-send">
+              <span>➤</span>
+            </button>
+          </div>
+
+        </div>
+
+        <!-- Right: Line-by-Line Code Explainer Drawer -->
+        <div class="tutor-sidebar-right">
+          <div class="tutor-sidebar-title">
+            <span>📍</span> Line-by-Line Explainer
+          </div>
+          <p style="font-size:0.78rem; color:var(--text-muted);">
+            Click any line in the code editor to see how it executes mechanically:
+          </p>
+
+          <div id="line-explainer-display"></div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================
+         VIEW 5: ALGORITHM & DS VISUALIZER
+         ========================================== -->
+    <section id="view-visualizer" class="view-section">
+      <div class="visualizer-container">
+        
+        <!-- Controls Bar -->
+        <div class="visualizer-controls-bar">
+          <div class="visualizer-select-group">
+            <label style="font-size:0.85rem; font-weight:700;">ALGORITHM:</label>
+            <select class="select-custom" id="visualizer-algo-select">
+              <option value="two-pointers">Two Pointers (Most Water Container)</option>
+              <option value="binary-search">Binary Search (Divide & Conquer)</option>
+              <option value="bubble-sort">Bubble Sort (Adjacent Swaps)</option>
+              <option value="stack-ops">Stack Operations (Parentheses Validator)</option>
+            </select>
+          </div>
+
+          <!-- Playback Actions -->
+          <div class="visualizer-playback-actions">
+            <button class="playback-btn" id="btn-step-reset" title="Reset">⏮️</button>
+            <button class="playback-btn" id="btn-step-back" title="Step Back">◀</button>
+            <button class="playback-btn btn-play-pause" id="btn-play-pause" title="Play / Pause">▶️</button>
+            <button class="playback-btn" id="btn-step-forward" title="Step Forward">▶</button>
+          </div>
+
+          <!-- Speed Slider -->
+          <div class="speed-control-group">
+            <span>Speed:</span>
+            <input type="range" class="speed-slider" id="visualizer-speed-slider" min="1" max="5" value="3">
+          </div>
+        </div>
+
+        <!-- Visual Canvas Stage -->
+        <div class="visualizer-stage" id="visualizer-stage-canvas"></div>
+
+        <!-- Step Description & Metrics -->
+        <div class="visualizer-step-info">
+          <div class="step-description" id="visualizer-step-desc">
+            <span>⚡</span> <span>Initial state. Click Play or Step Forward to start execution.</span>
+          </div>
+          <div class="step-complexity-tag" id="visualizer-step-complexity">
+            Time: O(N) | Space: O(1)
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==========================================
+       REPEATED MISTAKE REMEDIAL LAB MODAL
+       ========================================== -->
+  <div class="remedial-modal-backdrop" id="remedial-modal-backdrop">
+    <div class="remedial-modal-dialog" id="remedial-dialog-content"></div>
+  </div>
+
+  <!-- ==========================================
+       INSTALL APP MODAL
+       ========================================== -->
+  <div class="install-modal-backdrop" id="install-modal-backdrop">
+    <div class="install-modal-card" id="install-modal-card">
+      <!-- Header -->
+      <div class="install-modal-header">
+        <div class="install-modal-icon">⚡</div>
+        <div>
+          <h2 class="install-modal-title">Install Code From Zero</h2>
+          <p class="install-modal-subtitle">Run as a native desktop or mobile app — no browser tabs!</p>
+        </div>
+        <button class="install-modal-close" id="btn-close-install-modal" title="Close">✕</button>
+      </div>
+
+      <!-- Tab Switcher -->
+      <div class="install-tabs">
+        <button class="install-tab active" data-tab="windows">🖥️ Windows App</button>
+        <button class="install-tab" data-tab="pwa">📲 Install (PWA)</button>
+        <button class="install-tab" data-tab="mobile">📱 Mobile</button>
+      </div>
+
+      <!-- Tab: Windows Desktop -->
+      <div class="install-tab-content active" id="install-tab-windows">
+        <div class="install-option-grid">
+          <div class="install-option-card" id="btn-download-launcher">
+            <div class="install-option-icon">🚀</div>
+            <div>
+              <div class="install-option-title">Desktop Launcher</div>
+              <div class="install-option-desc">Download <code>Launch-ACET-App.bat</code> — double-click to open as a standalone window with no browser bars.</div>
+            </div>
+          </div>
+          <div class="install-option-card" id="btn-download-shortcut">
+            <div class="install-option-icon">🔗</div>
+            <div>
+              <div class="install-option-title">Desktop Shortcut</div>
+              <div class="install-option-desc">Download <code>Create-Desktop-Shortcut.ps1</code> — run once to pin Code From Zero to your Desktop.</div>
+            </div>
+          </div>
+        </div>
+        <div class="install-steps">
+          <div class="install-step"><span class="step-num">1</span> Download <strong>Launch-ACET-App.bat</strong></div>
+          <div class="install-step"><span class="step-num">2</span> Place it next to <code>index.html</code> (same folder)</div>
+          <div class="install-step"><span class="step-num">3</span> Double-click to launch in standalone mode ⚡</div>
+        </div>
+      </div>
+
+      <!-- Tab: PWA Install -->
+      <div class="install-tab-content" id="install-tab-pwa">
+        <div class="pwa-hero">
+          <div class="pwa-hero-icon">🌐</div>
+          <h3>Install via Browser</h3>
+          <p>Run ACET CodeMentor AI from the local server, then click the install button in your browser's address bar.</p>
+        </div>
+        <div class="install-steps">
+          <div class="install-step"><span class="step-num">1</span> Start the local server: run <code>server.ps1</code> in PowerShell</div>
+          <div class="install-step"><span class="step-num">2</span> Open <code>http://localhost:5500</code> in Chrome or Edge</div>
+          <div class="install-step"><span class="step-num">3</span> Click <strong>⊕ Install</strong> in the browser address bar</div>
+          <div class="install-step"><span class="step-num">4</span> Enjoy Code From Zero as a standalone PWA! 🎉</div>
+        </div>
+        <button class="pwa-install-trigger" id="btn-pwa-native-install">📲 Install Now (if available)</button>
+      </div>
+
+      <!-- Tab: Mobile -->
+      <div class="install-tab-content" id="install-tab-mobile">
+        <div class="pwa-hero">
+          <div class="pwa-hero-icon">📱</div>
+          <h3>Add to Home Screen</h3>
+          <p>Use Code From Zero on Android or iPhone from your Home Screen like a native app.</p>
+        </div>
+        <div class="install-steps">
+          <div class="install-step"><span class="step-num">Android</span> Open in Chrome → tap ⋮ Menu → <strong>Add to Home Screen</strong></div>
+          <div class="install-step"><span class="step-num">iPhone</span> Open in Safari → tap Share icon → <strong>Add to Home Screen</strong></div>
+          <div class="install-step"><span class="step-num">Note</span> The server must be accessible over Wi-Fi LAN (<code>http://192.168.1.3:5500</code>)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container"></div>
+
+  <!-- Core JavaScript Services -->
+  <script src="js/state.js"></script>
+  <script src="js/curriculum.js"></script>
+  <script src="js/compiler.js"></script>
+  <script src="js/ai-error-detector.js"></script>
+  <script src="js/line-explainer.js"></script>
+  <script src="js/hint-system.js"></script>
+  <script src="js/mistake-detector.js"></script>
+  <script src="js/ai-tutor.js"></script>
+  <script src="js/algorithm-visualizer.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

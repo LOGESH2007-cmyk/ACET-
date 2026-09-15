@@ -1,0 +1,238 @@
+/* ==========================================================================
+   ACET CodeMentor AI - Algorithm & Data Structure Visualizer Styles
+   ========================================================================== */
+
+.visualizer-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--border-radius-lg);
+  padding: 1.5rem;
+}
+
+.visualizer-controls-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 0.85rem 1.25rem;
+  background: var(--bg-secondary);
+  border-radius: var(--border-radius-md);
+  border: 1px solid var(--border-subtle);
+}
+
+.visualizer-select-group {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.visualizer-playback-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.playback-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--border-radius-sm);
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-medium);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.playback-btn:hover {
+  background: var(--primary);
+  border-color: var(--primary-light);
+  transform: translateY(-1px);
+}
+
+.playback-btn.btn-play-pause {
+  background: linear-gradient(135deg, var(--secondary), var(--primary));
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  box-shadow: 0 4px 12px var(--secondary-glow);
+}
+
+.speed-control-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+}
+
+.speed-slider {
+  accent-color: var(--secondary);
+  cursor: pointer;
+  width: 90px;
+}
+
+/* Visual Canvas Stage */
+.visualizer-stage {
+  height: 380px;
+  background: #090d15;
+  border: 1px solid var(--border-medium);
+  border-radius: var(--border-radius-md);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.6);
+}
+
+/* Array Elements Visualizer */
+.array-render-box {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 12px;
+  height: 220px;
+  width: 100%;
+  padding-bottom: 2rem;
+  position: relative;
+}
+
+.array-bar-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  position: relative;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.array-bar {
+  width: 44px;
+  background: linear-gradient(180deg, var(--primary), var(--primary-dark));
+  border-radius: 6px 6px 2px 2px;
+  box-shadow: 0 4px 12px var(--primary-glow);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 6px;
+  color: #fff;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.85rem;
+  transition: all 0.25s ease;
+}
+
+.array-bar.comparing {
+  background: linear-gradient(180deg, var(--warning), #d97706);
+  box-shadow: 0 0 16px var(--warning-glow);
+  transform: translateY(-8px);
+}
+
+.array-bar.swapping {
+  background: linear-gradient(180deg, var(--danger), #be123c);
+  box-shadow: 0 0 16px var(--danger-glow);
+  transform: scale(1.08);
+}
+
+.array-bar.sorted {
+  background: linear-gradient(180deg, var(--success), #059669);
+  box-shadow: 0 0 16px var(--success-glow);
+}
+
+.array-index-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* Pointers (Left, Right, Mid, Current) */
+.pointer-indicator {
+  position: absolute;
+  bottom: -28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--secondary);
+  transition: left 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.pointer-indicator::before {
+  content: "▲";
+  font-size: 0.8rem;
+  margin-bottom: -2px;
+}
+
+/* Stack Visualizer */
+.stack-render-box {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  gap: 8px;
+  width: 260px;
+  min-height: 240px;
+  border-left: 3px solid var(--secondary);
+  border-right: 3px solid var(--secondary);
+  border-bottom: 4px solid var(--secondary);
+  border-radius: 0 0 8px 8px;
+  padding: 8px;
+  background: rgba(6, 182, 212, 0.03);
+  position: relative;
+}
+
+.stack-item {
+  width: 100%;
+  padding: 0.65rem;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.8), rgba(79, 70, 229, 0.9));
+  border: 1px solid var(--border-bright);
+  border-radius: 4px;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: #fff;
+  animation: slideInDown 0.25s ease-out;
+}
+
+@keyframes slideInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Step Log & Algorithm Insights */
+.visualizer-step-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.85rem 1.25rem;
+  background: var(--bg-secondary);
+  border-radius: var(--border-radius-md);
+  border: 1px solid var(--border-subtle);
+}
+
+.step-description {
+  font-size: 0.92rem;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.step-complexity-tag {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--secondary);
+}
